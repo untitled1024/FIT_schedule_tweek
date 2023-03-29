@@ -25,8 +25,6 @@ const year = today.getFullYear();
   console.log(today);
   $('head').append('<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.css">');
   $('td').each(function() {
-    let isHighlighted_1 = false;
-    let isHighlighted_2 = false;
     const orig = $(this).text().match(/\[[\d\.,\-\s]*\]/);
     const isFortnightly = $(this).text().includes("ч/т");
     if(!orig) return;
@@ -65,8 +63,8 @@ const year = today.getFullYear();
   }
 
   function getDiffDays(date){
-    const diffTime = date - today;
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const diffTime = today - date;
+    const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
     return Math.abs(diffDays);
   }
 
@@ -100,7 +98,7 @@ const year = today.getFullYear();
         const diff = getDiffDays(element);
         if(element < today){
           color = COLOUR_FADED;         // already passed
-        }else if(diff <= 1){
+        }else if(diff == 0){
           color = COLOUR_HIGHLIGHTED_2; // today
         }else if(diff < 7){
           color = COLOUR_HIGHLIGHTED_1; // in a week
@@ -125,7 +123,7 @@ const year = today.getFullYear();
     newStr = newStr.replace(/([,\s]+$)/g, '') + ']';
     return [newStr, tooltips];
   }
-  
+
   function dateToString(date){
     if(Array.isArray(date)){
       return dateToString(date[0]) + '-' + dateToString(date[1]);
