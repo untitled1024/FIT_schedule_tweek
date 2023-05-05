@@ -86,9 +86,9 @@ const year = today.getFullYear();
             range_colour = COLOUR_FADED;         // already passed
           }else if(element[0] > today){
             range_colour = COLOUR_DEFAULT;       // yet to come
-          }else if(diff % period == 0){
+          }else if(element[0] < today && diff % period == 0){
             range_colour = COLOUR_HIGHLIGHTED_2; // today
-          }else if(!isFortnightly && diff % period < 7 || isFortnightly && diff % period > 7){
+          }else if(!isFortnightly && diff % period <= 7 || isFortnightly && diff % period >= 7){
             range_colour = COLOUR_HIGHLIGHTED_1; // in a week
           }
           return [[element, range_colour, unwrappedDates]];
@@ -100,7 +100,7 @@ const year = today.getFullYear();
           color = COLOUR_FADED;         // already passed
         }else if(diff == 0){
           color = COLOUR_HIGHLIGHTED_2; // today
-        }else if(diff < 7){
+        }else if(diff <= 7){
           color = COLOUR_HIGHLIGHTED_1; // in a week
         }
       return [[element, color]];
